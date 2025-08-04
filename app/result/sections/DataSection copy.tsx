@@ -3,7 +3,7 @@ import { socket } from "@/app/_socket";
 import React from "react";
 import { useEffect, useState } from "react";
 import Message, { MessageProps } from "./Message";
-import Card2, { Card1 } from "../components/Cards";
+// import Card2, { Card1 } from "../components/Cards";
 
 const DataSection = () => {
     //  const data: MessageProps[] = [

@@ -59,15 +59,17 @@ const Card = ({ name, email, message, children }: Props) => {
       <div className="flex items-center justify-between p-3">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8">
-            {card.brands[0] && (
+            {card.brands.map((brand, index) => (
+            <div key={`${brand.image}-${index}`} className="w-8 h-8">
               <Image
                 width={32}
                 height={32}
-                src={card.brands[0].image}
+                src={brand.image}
                 alt="profile"
                 className="w-full h-full"
               />
-            )}
+            </div>
+          ))}
           </div>
         </div>
         <button className="text-xs font-bold text-orange-500 border border-orange-500 px-3 py-2">Follow</button>
@@ -154,6 +156,7 @@ export const Card1 = ({ imageSrc, ...props }: CardProps) => {
   return (
     <Card {...props}>
       <Image
+        key={imageSrc}
         src={imageSrc}
         alt="post content"
         width={288}

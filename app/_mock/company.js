@@ -1,6 +1,6 @@
 export const APP_INFO = {
-  name: "Hennessy Photobooth",
-  description: "A photobooth application for Hennessy events",
+  name: "Memory Wall Photobooth",
+  description: "A photobooth application for memory collage",
   photo: {
     countdown: 3000 /* in milliseconds */,
     width: 600,

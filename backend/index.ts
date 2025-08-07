@@ -1,23 +1,25 @@
-import { Server } from 'socket.io';
-import { createServer } from 'http';
 import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import cors from 'cors';
 import { MessageProps } from '@/app/result/sections/Message';
 
 const app = express();
+app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://memory-wall-two.vercel.app/", "http://localhost:3000"],
+    origin: "*", // Tighten this in production
     methods: ["GET", "POST"]
   }
 });
 
-// Store messages in memory (consider Redis for production)
-const messages: MessageProps[] = [];
+// In-memory store (consider Redis for production)
+const messages : MessageProps[] = [];
 
 io.on('connection', (socket) => {
-  console.log('A user connected');
-
+  console.log('New client connected');
+  
   // Send existing messages to new client
   socket.emit('initial_messages', messages);
 
@@ -34,7 +36,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('User disconnected');
+    console.log('Client disconnected');
   });
 });
 

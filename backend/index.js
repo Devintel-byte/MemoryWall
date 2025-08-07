@@ -11,7 +11,9 @@ const io = new Server(httpServer, {
   cors: {
     origin: ["http://localhost:3000", "https://memorywall-uduu.onrender.com", "https://memory-wall-two.vercel.app" ],
     methods: ["GET", "POST"]
-  }
+  },
+  transports: ['websocket'],
+  perMessageDeflate: false
 });
 
 // In-memory store (consider Redis for production)

@@ -60,9 +60,10 @@ const PhotoCapture = () => {
       event: "sling",
       profilePicture: imageSrc, // This is the base64 image data
     };
-    socket.emit("slingEvent", data, (response: string) => {
-      //confirm response type later
-      console.log("Response from server:", response);
+   const compressedImage = imageSrc.replace(/^data:image\/\w+;base64,/, '');
+    socket.emit("slingEvent", { 
+      ...data, 
+      profilePicture: compressedImage 
     });
   };
 

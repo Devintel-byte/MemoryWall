@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "start": "NODE_ENV=production node server.js",
-    "build": "next build",
+    "start": "NODE_ENV=production node server.js --dir app/build",
+    "build": "next build && cp -r .next/static app/build/.next/static",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "type-check": "tsc --noEmit"
   },

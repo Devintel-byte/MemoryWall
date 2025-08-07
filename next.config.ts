@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: "standalone",
   distDir: 'app/build',
   typescript: {
     ignoreBuildErrors: true,  // Temporary during debugging
@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     domains: ['memorywall-backend.onrender.com'],
     loader: 'default',
     path: '/_next/image',
+    unoptimized: true,
   },
   async headers() {
     return [

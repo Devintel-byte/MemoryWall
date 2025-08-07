@@ -1,0 +1,19 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/build/standalone/node_modules/color-convert/route": "app/build/standalone/node_modules/color-convert/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/build/server/app/favicon.ico/route": "app/build/server/app/favicon.ico/route.js",
+  "/build/standalone/app/build/server/app/favicon.ico/route": "app/build/standalone/app/build/server/app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/capture/page": "app/capture/page.js",
+  "/result/page": "app/result/page.js",
+  "/build/server/app/page": "app/build/server/app/page.js",
+  "/build/standalone/app/build/server/app/page": "app/build/standalone/app/build/server/app/page.js",
+  "/build/server/app/capture/page": "app/build/server/app/capture/page.js",
+  "/build/standalone/app/build/server/app/capture/page": "app/build/standalone/app/build/server/app/capture/page.js",
+  "/build/server/app/result/page": "app/build/server/app/result/page.js",
+  "/build/standalone/app/build/server/app/result/page": "app/build/standalone/app/build/server/app/result/page.js",
+  "/build/types/app/page": "app/build/types/app/page.js",
+  "/build/types/app/capture/page": "app/build/types/app/capture/page.js",
+  "/build/types/app/result/page": "app/build/types/app/result/page.js"
+}

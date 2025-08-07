@@ -9,7 +9,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // Tighten this in production
+    origin: ["https://memorywall-backend.onrender.com", "https://wall.yourdomain.com"],
     methods: ["GET", "POST"]
   }
 });

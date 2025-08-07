@@ -5,7 +5,7 @@ const ResultPage = () => {
 
 
   return (
-    <div className="h-full w-full">
+    <div className="min-h-screen w-full">
         <DataSection />
     </div>
   )

@@ -1,7 +1,7 @@
 "use client";
 import Countdown from "react-countdown";
 import Button from "@/app/_components/button";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import Webcam from "react-webcam";
 import { APP_INFO } from "@/app/_mock";
 import { socket } from "@/app/_socket";
@@ -60,9 +60,10 @@ const PhotoCapture = () => {
       event: "sling",
       profilePicture: imageSrc, // This is the base64 image data
     };
-    socket.emit("slingEvent", data, (response: string) => {
-      //confirm response type later
-      console.log("Response from server:", response);
+   const compressedImage = imageSrc.replace(/^data:image\/\w+;base64,/, '');
+    socket.emit("slingEvent", { 
+      ...data, 
+      profilePicture: compressedImage 
     });
   };
 

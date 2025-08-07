@@ -34,6 +34,9 @@ const PhotoCapture = () => {
         setImageSrc(imageSrc ?? "");
         console.log(imageSrc); // Base64 image data
       }
+      // return () => clearInterval(interval);
+      //   clearInterval(interval);
+      //   setTimeLeft(3);
       setStartCountdown(false);
     }, APP_INFO.photo.countdown);
   };
@@ -48,24 +51,25 @@ const PhotoCapture = () => {
     setImageSrc("");
     setEmail("");
   };
-  
   const handleSubmit = (e: React.FormEvent) => {
+    // console.log("Submitted", { name, message });
     e.preventDefault();
     reset();
     const data = {
       user: { name, message, email, phoneNumber: "" },
       event: "sling",
-      profilePicture: imageSrc,
+      profilePicture: imageSrc, // This is the base64 image data
     };
-    socket.emit("slingEvent", data, (response: string) => {
-      console.log("Response from server:", response);
+   const compressedImage = imageSrc.replace(/^data:image\/\w+;base64,/, '');
+    socket.emit("slingEvent", { 
+      ...data, 
+      profilePicture: compressedImage 
     });
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 w-full">
-      {/* Webcam/Image Container */}
-      <div className="relative w-full max-w-[600px] h-[450px] md:h-[500px]">
+    <div className="flex flex-col items-center  gap-10 justify-center">
+      <div className="relative w-[600px] h-[450px]">
         {!imageSrc && (
           <Webcam
             audio={false}
@@ -73,52 +77,56 @@ const PhotoCapture = () => {
             mirrored
             screenshotFormat="image/jpeg"
             videoConstraints={{
-              facingMode: "user",
+              facingMode: "user", // "environment" for back camera
             }}
-            className="w-full h-full object-cover rounded-lg"
+            style={{
+              width: APP_INFO.photo.width,
+              height: APP_INFO.photo.height,
+            }}
+            // className={"h-84"}
           />
         )}
         {!!imageSrc && (
           <Image
             src={imageSrc}
             alt="Captured photo"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg"
+            className="absolute"
             width={600}
             height={450}
           />
         )}
         {startCountdown && (
-          <div className="absolute inset-0 flex justify-center items-center bg-black/30 rounded-lg">
+          <div className="absolute z-30 left-0 right-0 flex justify-center items-center top-1/2">
             <Countdown
               date={Date.now() + APP_INFO.photo.countdown}
               renderer={(props) => (
                 <span className="text-6xl text-white font-extrabold">
-                  {props.seconds}
+                  {" "}
+                  {props.seconds}{" "}
                 </span>
               )}
             />
           </div>
         )}
       </div>
+      {/* <button onClick={capture}>Capture photo</button> */}
 
-      {/* Form Container */}
-      <form className="flex flex-col gap-4 w-full max-w-md mt-6" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <input
           type="text"
           value={name}
           aria-label="name"
           placeholder="Name: "
           onChange={(e) => setName(e.target.value)}
-          className="border-2 border-white p-4 rounded w-full h-16 text-lg md:text-xl focus:outline-none placeholder:text-white/50 text-white bg-transparent"
-          required
+          className="border-2 border-white p-2 rounded w-96 h-16 text-xl md:text-2xl focus:outline-none placeholder:text-white/50 text-white"
         />
         <input
-          type="email"
+          type="text"
           value={email}
           aria-label="email"
           placeholder="Email: "
           onChange={(e) => setEmail(e.target.value)}
-          className="border-2 border-white p-4 rounded w-full h-16 text-lg md:text-xl focus:outline-none placeholder:text-white/50 text-white bg-transparent"
+          className="border-2 border-white p-2 rounded w-96 h-16 text-xl md:text-2xl focus:outline-none placeholder:text-white/50 text-white"
         />
         <textarea
           rows={3}
@@ -126,38 +134,31 @@ const PhotoCapture = () => {
           aria-label="message"
           placeholder="Brief message here... "
           onChange={(e) => setMessage(e.target.value)}
-          className="border-2 border-white p-4 rounded focus:outline-none min-h-24 text-lg md:text-xl placeholder:text-white/50 text-white bg-transparent w-full"
+          className="border-2 border-white p-2 rounded focus:outline-none h-24 text-xl md:text-2xl placeholder:text-white/50 text-white"
         />
       </form>
-
-      {/* Buttons Container */}
-      <div className="mt-6 w-full max-w-md flex flex-col sm:flex-row justify-center gap-4">
-        {!imageSrc ? (
-          <Button 
-            onClick={capture} 
-            disabled={!!imageSrc} 
-            className="bg-white text-orange-500 w-full sm:w-auto px-8 py-4 text-lg"
-          >
-            Capture
+      <div>
+        {!imageSrc && (
+          <Button onClick={capture} disabled={!!imageSrc} className="bg-white text-orange-500">
+            capture
           </Button>
-        ) : (
-          <>
+        )}
+        {imageSrc && (
+          <div className="flex flex-row gap-4">
             <Button 
-              onClick={retake} 
-              className="bg-orange-200 w-full sm:w-auto px-8 py-4 text-lg"
-            >
-              Retake
-            </Button>
+              onClick={retake} className="bg-orange-200">
+                Retake
+              </Button>
             <Button
               type="submit"
               disabled={!name}
               onClick={handleSubmit}
-              className="text-white w-full sm:w-auto px-8 py-4 text-lg"
+              className="text-white"
               variant="success"
             >
               Submit
             </Button>
-          </>
+          </div>
         )}
       </div>
     </div>

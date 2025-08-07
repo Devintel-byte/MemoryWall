@@ -2,7 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import { MessageProps } from '@/app/result/sections/Message';
+// import { MessageProps } from '@/app/result/sections/Message';
 
 const app = express();
 app.use(cors());
@@ -15,7 +15,7 @@ const io = new Server(httpServer, {
 });
 
 // In-memory store (consider Redis for production)
-const messages : MessageProps[] = [];
+const messages = [];
 
 io.on('connection', (socket) => {
   console.log('New client connected');

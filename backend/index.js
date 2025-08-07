@@ -9,7 +9,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://memorywall-backend.onrender.com", "https://wall.yourdomain.com"],
+    origin: ["http://localhost:3000", "https://memorywall-uduu.onrender.com"],
     methods: ["GET", "POST"]
   }
 });

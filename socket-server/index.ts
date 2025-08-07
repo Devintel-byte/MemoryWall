@@ -7,7 +7,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://your-vercel-app.vercel.app", "http://localhost:3000"],
+    origin: ["https://memory-wall-two.vercel.app/", "http://localhost:3000"],
     methods: ["GET", "POST"]
   }
 });

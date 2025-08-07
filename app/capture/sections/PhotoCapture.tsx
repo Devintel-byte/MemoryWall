@@ -1,7 +1,7 @@
 "use client";
 import Countdown from "react-countdown";
 import Button from "@/app/_components/button";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import Webcam from "react-webcam";
 import { APP_INFO } from "@/app/_mock";
 import { socket } from "@/app/_socket";
